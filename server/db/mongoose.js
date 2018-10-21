@@ -5,6 +5,8 @@ mongoose.Promise = global.Promise; // tell mongoose to use built-in promise libr
 //connect mongoose to database
 mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp', { useNewUrlParser: true });
 
+mongoose.set('useFindAndModify', false);
+
 // let db = {
 //   localhost: 'mongodb://localhost:27017/TodoApp',
 //   mlab: 'mongodb://autsada:ann1ong2@ds163162.mlab.com:63162/node-todo-api'
