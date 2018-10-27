@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise; // tell mongoose to use built-in promise library
 
 //connect mongoose to database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost:27017/TodoApp', { useNewUrlParser: true });
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true });
 
 mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 // let db = {
 //   localhost: 'mongodb://localhost:27017/TodoApp',

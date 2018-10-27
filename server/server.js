@@ -1,3 +1,5 @@
+require('./config/config');
+
 const { ObjectID } = require('mongodb');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,7 +10,7 @@ const { Todo } = require('./models/todo');
 const { User } = require('./models/user');
 
 let app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT;
 
 app.use(bodyParser.json());
 
@@ -92,13 +94,26 @@ app.patch('/todos/:id', (req, res) => {
 
   Todo.findByIdAndUpdate(id, { $set: body }, { new: true })
     .then(todo => {
-        if (!todo) {
-            return res.sendStatus(404).send();
-        }
+      if (!todo) {
+        return res.sendStatus(404).send();
+      }
 
-        res.send({ todo });
-    }).catch (error => res.sendStatus(400).send())
+      res.send({ todo });
+    })
+    .catch(error => res.sendStatus(400).send());
+});
 
+app.post('/users', (req, res) => {
+  let body = _.pick(req.body, ['email', 'password']);
+  let user = new User(body);
+
+  user
+    .save()
+    .then(() => {
+      return user.generateAuthToken()
+    })
+    .then(token => res.header('x-auth', token).send({user}))
+    .catch(error => res.sendStatus(400).send(error));
 });
 
 app.listen(port, () => {
