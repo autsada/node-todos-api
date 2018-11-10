@@ -21,8 +21,7 @@ let UserSchema = new mongoose.Schema({
     required: true,
     minlength: 6
   },
-  tokens: [
-    {
+  tokens: [{
       access: {
         type: String,
         required: true
@@ -31,8 +30,7 @@ let UserSchema = new mongoose.Schema({
         type: String,
         required: true
       }
-    }
-  ]
+    }]
 });
 
 //Set data the we want to send back to client
