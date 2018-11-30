@@ -36,7 +36,7 @@ let UserSchema = new mongoose.Schema({
 //Set data the we want to send back to client
 UserSchema.methods.toJSON = function() {
   let user = this;
-  let userObject = user.toObject();
+  let userObject = user.toObject(); // toObject() -> convert mongoose variable "user" to regular object
 
   return _.pick(userObject, ['_id', 'email']);
 };

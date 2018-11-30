@@ -43,7 +43,7 @@ MongoClient.connect(
         name: 'Autsada'
     }).toArray()
         .then(docs => {
-            console.log('Todos');
+            console.log('Users');
             console.log(JSON.stringify(docs, undefined, 2));
         }, err => {
             console.log('Unable to fetch todos', err);
